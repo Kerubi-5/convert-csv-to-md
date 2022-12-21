@@ -1,5 +1,5 @@
-# CSV Batch Converter to Markdown Files
-
+# CSV Batch Converter to Markdown Files 
+This project was made to convert a csv file exported from a wordpress to markdown files 
 
 ## Usage
 
