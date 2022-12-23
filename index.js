@@ -73,6 +73,7 @@ try {
           // Loop through each row in the CSV data
           csvData.data.forEach((row) => {
             // Extract the frontmatter properties and content from the row
+            // * YOU CAN CHANGE THE FRONMATTER BELLOW
             const frontmatter = {
               title: row.Title,
               status: row["Post status"],
@@ -80,15 +81,18 @@ try {
               tags: row.Tags,
               categories: row.Categories?.split("|"),
             };
+            // * YOU CAN CHANGE THE FRONMATTER ABOVE
 
             createMarkdownFile(frontmatter, row.Content);
           });
         } else if (fileExtension === ".xml") {
-          console.log("Let's see");
-
+          // Parse the XML data
           const obj = xml2js(data, { compact: true });
 
+          // Loop through each xml data
           obj.data.post.forEach((post) => {
+            // Extract the xml data and put into frontmatter
+            // * YOU CAN CHANGE THE FRONMATTER BELLOW
             const frontmatter = {
               title: post.Title?._cdata ?? post.Title?._text,
               status: post.Status?._cdata ?? post.Status?._text,
@@ -98,10 +102,11 @@ try {
                 post.Categories?._cdata?.split("|") ||
                 post.Categories?._text?.split("|"),
             };
+            // * YOU CAN CHANGE THE FRONMATTER ABOVE
 
             createMarkdownFile(
               frontmatter,
-              post.Content?._cdata ?? post.Content?._text
+              post.Content?._cdata ?? post.Content?._text // Change this if your content is different
             );
           });
         } else {
