@@ -99,7 +99,10 @@ try {
                 post.Categories?._text?.split("|"),
             };
 
-            createMarkdownFile(frontmatter, post.Content);
+            createMarkdownFile(
+              frontmatter,
+              post.Content?._cdata ?? post.Content?._text
+            );
           });
         } else {
           console.log("Your file is neither a csv or xml");
