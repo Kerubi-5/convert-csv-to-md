@@ -1,4 +1,4 @@
-# CSV Batch Converter to Markdown Files 
+# CSV-XML Batch Converter to Markdown Files 
 This project was made to convert a csv or an xml file exported from a wordpress or any other cms to markdown files 
 
 ## Usage
