@@ -4,6 +4,8 @@ import yaml from "js-yaml"; // Converts Javascript Object to valid yaml properti
 import { xml2js } from "xml-js";
 import { createInterface } from "readline";
 
+let fileCount = 1;
+
 // Create a readline interface
 const r1 = createInterface({
   input: process.stdin,
@@ -35,6 +37,7 @@ function createMarkdownFile(frontmatter, content) {
   if (!fs.existsSync("markdown")) fs.mkdirSync("markdown"); // Create the output directory if it doesn't exist
 
   console.log(frontmatter?.title);
+  fileCount++;
   const fileName = `${process.cwd()}/markdown/${
     sanitizeFileName(frontmatter.title) ?? "_"
   }.md`;
@@ -114,7 +117,7 @@ try {
         }
 
         console.log(
-          "Finished converting your files take a look at the markdown folder inside your directory"
+          `Finished creating ${fileCount} markdown files take a look at the markdown folder inside your directory`
         );
 
         r1.close();
