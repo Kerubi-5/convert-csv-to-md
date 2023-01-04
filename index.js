@@ -6,6 +6,14 @@ import { createInterface } from "readline";
 
 let fileCount = 1;
 
+function formatDate(unixTimestamp) {
+  const date = new Date(unixTimestamp * 1000);
+  const year = date.getFullYear();
+  const month = ("0" + (date.getMonth() + 1)).slice(-2);
+  const day = ("0" + date.getDate()).slice(-2);
+  return `${year}-${month}-${day}`;
+}
+
 // Create a readline interface
 const r1 = createInterface({
   input: process.stdin,
@@ -76,11 +84,11 @@ try {
           // Loop through each row in the CSV data
           csvData.data.forEach((row) => {
             // Extract the frontmatter properties and content from the row
-            // * YOU CAN CHANGE THE FRONMATTER BELLOW
+            // * YOU CAN CHANGE THE FRONMATTER BELLOW FOR CSV
             const frontmatter = {
               title: row.Title,
               status: row["Post status"],
-              datePublished: row["Published date"],
+              datePublished: formatDate(row["Published date"]),
               tags: row.Tags,
               categories: row.Categories?.split("|"),
             };
@@ -95,11 +103,11 @@ try {
           // Loop through each xml data
           obj.data.post.forEach((post) => {
             // Extract the xml data and put into frontmatter
-            // * YOU CAN CHANGE THE FRONMATTER BELLOW
+            // * YOU CAN CHANGE THE FRONMATTER BELLOW FOR MD
             const frontmatter = {
               title: post.Title?._cdata ?? post.Title?._text,
               status: post.Status?._cdata ?? post.Status?._text,
-              datePublished: post.Date?._cdata ?? post.Date?._text,
+              datePublished: formatDate(post.Date?._cdata ?? post.Date?._text), // Convert from unix to 2023-01-04 (YYYY-MM-DD)
               tags: post.Tags?._cdata ?? post.Tags?._text,
               categories:
                 post.Categories?._cdata?.split("|") ||
